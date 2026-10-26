@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OS Nexus: Interactive Operating System Workbench for exploring CPU scheduling, memory management, concurrency, disk I/O, and file systems." />
+  <title>OS Nexus: Interactive Operating System Workbench</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/tokens.css" />
+  <link rel="stylesheet" href="/src/styles/layout.css" />
+  <link rel="stylesheet" href="/src/styles/components.css" />
+</head>
+<body>
+  <div id="app">
+    <nav id="sidebar" class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <div class="logo">
+          <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="12" height="12" rx="2" fill="var(--accent-teal)" opacity="0.9"/>
+            <rect x="18" y="2" width="12" height="12" rx="2" fill="var(--accent-amber)" opacity="0.7"/>
+            <rect x="2" y="18" width="12" height="12" rx="2" fill="var(--accent-amber)" opacity="0.7"/>
+            <rect x="18" y="18" width="12" height="12" rx="2" fill="var(--accent-teal)" opacity="0.5"/>
+            <rect x="10" y="10" width="12" height="12" rx="2" fill="var(--bg-primary)" stroke="var(--accent-teal)" stroke-width="1.5"/>
+            <circle cx="16" cy="16" r="3" fill="var(--accent-teal)"/>
+          </svg>
+          <span class="logo-text">OS<span class="logo-accent">Nexus</span></span>
+        </div>
+        <button id="sidebar-toggle" class="icon-btn sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M3 4.5H15M3 9H15M3 13.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sidebar-search">
+        <div class="search-wrap">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <input id="nav-search" type="search" placeholder="Search modules…" aria-label="Search navigation" />
+        </div>
+      </div>
+
+      <nav class="nav-menu" aria-label="Sidebar navigation">
+        <ul class="nav-list" role="list">
+          <li><a href="#overview" class="nav-item active" data-route="overview">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span>Overview</span>
+          </a></li>
+          <li class="nav-section-label">Simulators &amp; Labs</li>
+          <li><a href="#integrated" class="nav-item" data-route="integrated">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 5V8L10 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Integrated Workbench</span>
+          </a></li>
+          <li><a href="#cpu" class="nav-item" data-route="cpu">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M6 1V3M10 1V3M6 13V15M10 13V15M1 6H3M1 10H3M13 6H15M13 10H15" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>CPU Scheduling Lab</span>
+          </a></li>
+          <li><a href="#concurrency" class="nav-item" data-route="concurrency">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M6.5 8H9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Concurrency Lab</span>
+          </a></li>
+          <li><a href="#memory" class="nav-item" data-route="memory">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="14" height="8" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 4V12M8 4V12M11 4V12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Memory Management</span>
+          </a></li>
+          <li><a href="#disk" class="nav-item" data-route="disk">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5V5M8 11V14.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Disk Scheduling</span>
+          </a></li>
+          <li><a href="#resources" class="nav-item" data-route="resources">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L13 5V11L8 14L3 11V5L8 2Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span>Resource Allocation</span>
+          </a></li>
+          <li><a href="#filesystem" class="nav-item" data-route="filesystem">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4C2 3.4 2.4 3 3 3H6L7.5 4.5H13C13.6 4.5 14 4.9 14 5.5V12C14 12.6 13.6 13 13 13H3C2.4 13 2 12.6 2 12V4Z" stroke="currentColor" stroke-width="1.2"/></svg>
+            <span>Virtual File System</span>
+          </a></li>
+          <li class="nav-section-label">Academic &amp; Reference</li>
+          <li><a href="#catalogue" class="nav-item" data-route="catalogue">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 6H11M5 9H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Lab Manual &amp; Experiments</span>
+          </a></li>
+          <li><a href="#viva" class="nav-item" data-route="viva">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 2H14V11H9L8 13L7 11H2V2Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M5 6H11M5 8.5H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Viva Voce &amp; Reports</span>
+          </a></li>
+          <li><a href="#about" class="nav-item" data-route="about">
+            <svg class="nav-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 7V11M8 5.5V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>About OS Nexus</span>
+          </a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="version-badge">OS Nexus · v1.0.0</div>
+      </div>
+    </nav>
+
+    <div class="main-wrapper">
+      <header class="topbar" role="banner">
+        <div class="topbar-left">
+          <button id="mobile-menu-btn" class="icon-btn" aria-label="Open navigation menu">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 4.5H15M3 9H15M3 13.5H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb" id="breadcrumb">
+              <li><a href="#overview" data-route="overview">OS Nexus</a></li>
+              <li id="breadcrumb-current" aria-current="page">Overview</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="topbar-right">
+          <button id="cmd-palette-btn" class="command-trigger-btn" aria-label="Open Command Palette (Ctrl+K)">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.2"/><path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            <span>Commands</span>
+            <kbd class="kbd-pill">Ctrl+K</kbd>
+          </button>
+          <button id="audio-toggle" class="icon-btn" aria-label="Toggle Synthesized Audio FX" title="Toggle Audio FX">
+            <svg id="audio-icon-on" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M7 3L4 5.5H2V10.5H4L7 13V3Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 6C10.7 6.8 11 7.4 11 8C11 8.6 10.7 9.2 10 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M12 4C13.2 5.2 14 6.5 14 8C14 9.5 13.2 10.8 12 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </button>
+          <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme" title="Toggle Theme">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1V2.5M8 13.5V15M1 8H2.5M13.5 8H15M3 3L4 4M12 12L13 13M13 3L12 4M4 12L3 13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" class="main-content" role="main" aria-live="polite">
+        <div id="view-container"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title"></h3>
+        <button class="icon-btn modal-close" aria-label="Close modal">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+      <div id="modal-actions" class="modal-actions"></div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
